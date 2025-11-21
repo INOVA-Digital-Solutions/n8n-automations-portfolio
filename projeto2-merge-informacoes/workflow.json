@@ -1,0 +1,467 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5917ea01-f822-45fd-9e6e-b6250110010f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f5efb10-06eb-46d0-897f-6fd3ef47112f",
+              "name": "Lista A",
+              "value": "[   { \"nome\": \"\", \"email\": \"ana@mail.com\",\"id\":\"1\" },   { \"nome\": \"Eduardo\", \"email\": \"carlos@mail.com\", \"id\":\"2\" } ]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        -96
+      ],
+      "id": "d6788823-1c9a-4b68-b861-165b3b5f7071",
+      "name": "Edit Fields",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f5efb10-06eb-46d0-897f-6fd3ef47112f",
+              "name": "Lista A",
+              "value": "[   {\"email\": \"ana@mail.com\", \"login_count\": 15, \"last_access\": \"2025-01-20\",\"id\":\"3\"},   {\"email\": \"carlos@mail.com\", \"login_count\": 3, \"last_access\": \"2025-01-19\", \"id\":\"2\"} ]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        80
+      ],
+      "id": "9795f0f0-179d-4e5a-8539-a4e5937aedc5",
+      "name": "Edit Fields1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "['Lista A']",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        400,
+        80
+      ],
+      "id": "270c2edc-9ac0-43b0-b15f-6cc10acd3edc",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "['Lista A']",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -96
+      ],
+      "id": "a4dbff98-727d-4a45-8f17-0b1e4854c6fc",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "fieldsToMatchString": "email",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        592,
+        0
+      ],
+      "id": "320b9efe-8f70-4633-ad35-1a74a1abe8b5",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "129c2d8a-864b-4217-ba7c-a68d3f0d872b",
+              "name": "Id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "58ba00e8-7195-4b7d-a909-91c78bfb2822",
+              "name": "Nome",
+              "value": "={{ $json.nome }}",
+              "type": "string"
+            },
+            {
+              "id": "de86ddd3-e0d6-414e-b61f-bbada4fe99f3",
+              "name": "Email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "29c43f27-b8c1-40b6-800e-05e251298265",
+              "name": "Número de logins",
+              "value": "={{ $json.login_count }}",
+              "type": "number"
+            },
+            {
+              "id": "d30c9fff-75e6-4ab4-ae5a-cd2dfe67e449",
+              "name": "Último Acesso",
+              "value": "={{ $json.last_access }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        992,
+        -16
+      ],
+      "id": "c0737cfd-272a-4eb9-8f5f-0899bae512f7",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7c499d1b-2331-4e75-8e75-1f9bbf3cfb9b",
+              "leftValue": "={{ $json.nome }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "3547b3c7-d51e-4750-bdc8-6d690cf31149",
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "3809a477-d405-4e7b-9608-8d53e1b0d305",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "e472860d-c846-4984-bd0e-803c5a3035a0",
+              "leftValue": "={{ $json.login_count }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "cc3485fd-f723-412f-926d-45ccffb3342c",
+              "leftValue": "={{ $json.last_access }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        784,
+        0
+      ],
+      "id": "1ba56d41-26a7-4cfe-b1f5-3cae7f253dfc",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/1441463501607538739/JTG0BJ3T7--JDEptAJJwcadj4V_1lUp1lucrfueKf66Kp-dEv9CvQXW6crX-Ee9G6eGs",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "content",
+              "value": "=O usuário com o id {{ $json.id }}, não possui os dados completos."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        992,
+        208
+      ],
+      "id": "6a0ea7a8-4cd4-4ecd-a45d-9623046d35a4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "10_ZeZuefKjPJO1wu51JpXACJ4V49LpF8c8iWPwHyI2U",
+          "mode": "list",
+          "cachedResultName": "teste",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10_ZeZuefKjPJO1wu51JpXACJ4V49LpF8c8iWPwHyI2U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10_ZeZuefKjPJO1wu51JpXACJ4V49LpF8c8iWPwHyI2U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Id": "={{ $json.Id }}",
+            "Nome": "={{ $json.Nome }}",
+            "Email": "={{ $json.Email }}",
+            "Número de logins": "={{ $json['Número de logins'] }}",
+            "Último Acesso": "={{ $json['Último Acesso'] }}"
+          },
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Número de logins",
+              "displayName": "Número de logins",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Último Acesso",
+              "displayName": "Último Acesso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1200,
+        -16
+      ],
+      "id": "e98ada17-6e6b-4a23-b84b-c0fc04ba0535",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BipTB5MRioQUoDpG",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b09eac50-254a-4c57-abf5-5445cc8fa429",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4d757f3bd1e032ca6220e2533cb1330b9a41f045ce45f9d2d79351e9a748d4d6"
+  },
+  "id": "7nsGRTw3neTwQ2tW",
+  "tags": []
+}
