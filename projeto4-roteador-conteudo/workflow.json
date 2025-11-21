@@ -1,0 +1,518 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        0
+      ],
+      "id": "a4f9a99b-76c2-4067-bbeb-4deff3c1d24c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dbb57ef2-fd0b-4c9c-ad99-ceda154d5ce0",
+              "name": "",
+              "value": "{   \"user\": \"maria\",   \"content\": \"isso aqui é incrível!\",   \"type\": \"review\",    \"score\": 0.92 }",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        -160
+      ],
+      "id": "9c80eaab-e174-46e9-9268-d28af7c2f0ba",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json[''].type }}",
+                    "rightValue": "review",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "642c2a58-ec2d-45c5-b33f-b0f753d1de1d"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4f57d6f1-e1d0-4472-8b32-356982b192b4",
+                    "leftValue": "={{ $json[''].type }}",
+                    "rightValue": "question",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d8246d40-be77-4a27-b586-5e56d9947a6e",
+                    "leftValue": "={{ $json[''].type }}",
+                    "rightValue": "complaint",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "03b84f2a-3fc8-4b2e-8efd-c49afa98d199",
+                    "leftValue": "={{ $json[''].type }}",
+                    "rightValue": "spam",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        128,
+        -32
+      ],
+      "id": "14edf056-94fd-43fc-b143-14ea9c3369db",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "37e03011-e9d6-4bc9-a5f4-9620195a3b68",
+              "leftValue": "={{ $json[''].score }}",
+              "rightValue": 0.8,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        -192
+      ],
+      "id": "5c6525fd-f9ca-4693-80a3-931389aabb99",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "37e03011-e9d6-4bc9-a5f4-9620195a3b68",
+              "leftValue": "={{ $json[''].score }}",
+              "rightValue": 0.5,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        -64
+      ],
+      "id": "580247bd-8645-47b5-bc2d-7a2fe5b24e1b",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "37e03011-e9d6-4bc9-a5f4-9620195a3b68",
+              "leftValue": "={{ $json[''].score }}",
+              "rightValue": 0.6,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        64
+      ],
+      "id": "43d08c03-3428-46ed-8f75-2543ab77febf",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "37e03011-e9d6-4bc9-a5f4-9620195a3b68",
+              "leftValue": "={{ $json[''].score }}",
+              "rightValue": 0.2,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        192
+      ],
+      "id": "8b1fee76-df8c-4149-aa70-e4427941fe65",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "10_ZeZuefKjPJO1wu51JpXACJ4V49LpF8c8iWPwHyI2U",
+          "mode": "list",
+          "cachedResultName": "teste",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10_ZeZuefKjPJO1wu51JpXACJ4V49LpF8c8iWPwHyI2U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10_ZeZuefKjPJO1wu51JpXACJ4V49LpF8c8iWPwHyI2U/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        768,
+        -208
+      ],
+      "id": "70c45044-03dc-452c-ad5c-b54e3c2e0773",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BipTB5MRioQUoDpG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "408cbef1-d07e-4855-9b96-33d9b7b034a3",
+              "name": "Usuário",
+              "value": "={{ $json[''].user }}",
+              "type": "string"
+            },
+            {
+              "id": "fbed483d-dfa5-450a-90fb-1af2215b019c",
+              "name": "Conteúdo",
+              "value": "={{ $json[''].content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        -208
+      ],
+      "id": "e319682d-2f7e-4f48-9bef-82d72d7097c1",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dbb57ef2-fd0b-4c9c-ad99-ceda154d5ce0",
+              "name": "",
+              "value": "{   \"user\": \"eduardo\",   \"content\": \"Que beleza!\",   \"type\": \"review\",    \"score\": 0.92 }",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        0
+      ],
+      "id": "bb39e597-9410-4063-b105-f2b504fc313c",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dbb57ef2-fd0b-4c9c-ad99-ceda154d5ce0",
+              "name": "",
+              "value": "{   \"user\": \"jonas\",   \"content\": \"curti demais!\",   \"type\": \"review\",    \"score\": 0.92 }",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        160
+      ],
+      "id": "a15052d9-30e3-4fb1-9c8a-1fef231ebbbc",
+      "name": "Edit Fields3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a8441cf2-398c-4d56-9cbc-729a51594b1e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4d757f3bd1e032ca6220e2533cb1330b9a41f045ce45f9d2d79351e9a748d4d6"
+  },
+  "id": "7nsGRTw3neTwQ2tW",
+  "tags": []
+}
