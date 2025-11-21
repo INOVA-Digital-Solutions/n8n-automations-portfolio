@@ -20,12 +20,13 @@ Este workflow identifica a prioridade de cada tarefa (Setados via Set)
 - Slack API
 - Google Sheets API
 - Discord Webhook
-- 
+
 ## Fluxo
 1. O workflow recebe uma lista de tarefas.
 2. Cada tarefa é convertida em item individual.
 3. O Switch avalia `priority`.
 4. Cada prioridade é direcionada para um serviço diferente.
+5. Um aviso éenviado a um canal do discord avisando final do fluxo.
 
 ## Como rodar
 1. Baixe o arquivo `workflow.json`.
